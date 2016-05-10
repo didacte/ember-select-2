@@ -149,7 +149,7 @@ var Select2Component = Ember.Component.extend({
       var text = get(item, optionLabelSelectedPath || optionLabelPath);
 
       // escape text unless it's passed as a Handlebars.SafeString
-      return Ember.Handlebars.Utils.escapeExpression(text);
+      return self.escapeText(text);
     };
 
     /*
@@ -439,6 +439,10 @@ var Select2Component = Ember.Component.extend({
       this.valueChanged
     );
     this.removeObserver('value', this.valueChanged);
+  },
+
+  escapeText: function(text) {
+    return Ember.Handlebars.Utils.escapeExpression(text);
   },
 
   /**
