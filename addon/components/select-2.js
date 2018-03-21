@@ -3,6 +3,11 @@ import Ember from "ember";
 var get = Ember.get;
 var run = Ember.run;
 
+// Simple fmt implementation since Ember.String.fmt is deprecated
+function fmt(str, token) {
+  return str.replace('%@', token);
+}
+
 /**
  * Ember select-2 component wrapping the jQuery select2 plugin while
  * respecting Ember data bindings and getter/setter methods on the content.
@@ -246,7 +251,7 @@ var Select2Component = Ember.Component.extend({
 
       term = Ember.Handlebars.Utils.escapeExpression(term);
 
-      return Ember.String.htmlSafe(Ember.String.fmt(text, term));
+      return Ember.String.htmlSafe(fmt(text, term));
     };
 
     /*
@@ -256,7 +261,7 @@ var Select2Component = Ember.Component.extend({
     options.formatAjaxError = function(jqXHR, textStatus, errorThrown) {
       var text = self.get('typeaheadErrorText');
 
-      return Ember.String.htmlSafe(Ember.String.fmt(text, errorThrown));
+      return Ember.String.htmlSafe(fmt(text, errorThrown));
     };
 
     /*
